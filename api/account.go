@@ -2,7 +2,9 @@ package api
 
 import (
 	db "assignment_01/simplebank/db/sqlc"
+	"assignment_01/simplebank/token"
 	"database/sql"
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +12,6 @@ import (
 )
 
 type createAccountRequest struct {
-	Owner    string `json:"owner"  binding:"required"`
 	Currency string `json:"currency"  binding:"required,oneof=usd euro birr shilng"`
 }
 
@@ -20,8 +21,9 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, errResponse(err))
 		return
 	}
+	payload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	arg := db.CreateAccountParams{
-		Owner:    req.Owner,
+		Owner:    payload.Username,
 		Balance:  0,
 		Currency: req.Currency,
 	}
@@ -59,6 +61,12 @@ func (server *Server) getAccount(ctx *gin.Context) {
 			return
 		}
 		ctx.JSON(http.StatusInternalServerError, errResponse(err))
+	}
+	payload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if account.Owner != payload.Username {
+		err := errors.New("accont does not belong to authenticated owner")
+		ctx.JSON(http.StatusUnauthorized, errResponse(err))
+
 	}
 
 	ctx.JSON(http.StatusOK, account)
