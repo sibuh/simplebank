@@ -76,7 +76,7 @@ func (store *SqlStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 			Amount:    arg.Amount,
 		})
 		if err != nil {
-			return err
+			return err // indirect
 		}
 		// account1, err := q.GetAccount(ctx, arg.FromAccountID)
 		// if err != nil {
