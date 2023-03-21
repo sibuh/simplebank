@@ -2,6 +2,7 @@ package api
 
 import (
 	db "assignment_01/simplebank/db/sqlc"
+	"assignment_01/simplebank/token"
 	"assignment_01/simplebank/util"
 	"log"
 
@@ -12,23 +13,39 @@ import (
 )
 
 type Server struct {
-	store  db.Store
-	router *gin.Engine
+	tokenMaker token.Maker
+	store      db.Store
+	router     *gin.Engine
+	config     util.Config
 }
 
-func NewServer(store db.Store) *Server {
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, err
+	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterValidation("currency", validCurrency)
 	}
-	server := &Server{store: store}
+	server := &Server{
+		config:     config,
+		store:      store,
+		tokenMaker: tokenMaker,
+	}
+	server.setupRouter()
+
+	return server, nil
+}
+func (server *Server) setupRouter() {
 	router := gin.Default()
 	router.POST("/users", server.createUser)
+	router.POST("/users/login", server.loginUser)
 	router.POST("/accounts", server.createAccount)
 	router.POST("/tranfers", server.createTransfer)
 	router.GET("/accounts/:id", server.getAccount)
 	router.GET("/accounts/", server.listAccount)
 	server.router = router
-	return server
 }
 func errResponse(err error) gin.H {
 	return gin.H{"error": err.Error()}
