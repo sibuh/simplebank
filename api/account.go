@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
-	_ "github.com/lib/pq"
 )
 
 type createAccountRequest struct {
