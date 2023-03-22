@@ -1,12 +1,12 @@
 package main
 
 import (
-	"assignment_01/simplebank/api"
-	"assignment_01/simplebank/util"
+	"exercise/simplebank/api"
+	"exercise/simplebank/util"
 
 	"database/sql"
 
-	db "assignment_01/simplebank/db/sqlc"
+	db "exercise/simplebank/db/sqlc"
 	"log"
 
 	_ "github.com/lib/pq"

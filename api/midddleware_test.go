@@ -1,7 +1,7 @@
 package api
 
 import (
-	"assignment_01/simplebank/token"
+	"exercise/simplebank/token"
 	"fmt"
 	"net/http"
 	"net/http/httptest"

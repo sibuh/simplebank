@@ -1,13 +1,13 @@
 package api
 
 import (
-	mockdb "assignment_01/simplebank/db/mock"
-	db "assignment_01/simplebank/db/sqlc"
-	"assignment_01/simplebank/token"
-	"assignment_01/simplebank/util"
 	"bytes"
 	"database/sql"
 	"encoding/json"
+	mockdb "exercise/simplebank/db/mock"
+	db "exercise/simplebank/db/sqlc"
+	"exercise/simplebank/token"
+	"exercise/simplebank/util"
 	"fmt"
 	"io/ioutil"
 	"net/http"

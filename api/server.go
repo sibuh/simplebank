@@ -1,9 +1,9 @@
 package api
 
 import (
-	db "assignment_01/simplebank/db/sqlc"
-	"assignment_01/simplebank/token"
-	"assignment_01/simplebank/util"
+	db "exercise/simplebank/db/sqlc"
+	"exercise/simplebank/token"
+	"exercise/simplebank/util"
 	"log"
 
 	"github.com/gin-gonic/gin"

@@ -1,14 +1,15 @@
 package api
 
 import (
-	db "assignment_01/simplebank/db/sqlc"
-	"assignment_01/simplebank/token"
 	"database/sql"
 	"errors"
+	db "exercise/simplebank/db/sqlc"
+	"exercise/simplebank/token"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
+	_ "github.com/lib/pq"
 )
 
 type createAccountRequest struct {

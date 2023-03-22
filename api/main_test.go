@@ -1,8 +1,8 @@
 package api
 
 import (
-	db "assignment_01/simplebank/db/sqlc"
-	"assignment_01/simplebank/util"
+	db "exercise/simplebank/db/sqlc"
+	"exercise/simplebank/util"
 	"os"
 	"testing"
 	"time"
