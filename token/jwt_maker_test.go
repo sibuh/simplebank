@@ -1,7 +1,7 @@
 package token
 
 import (
-	"assignment_01/simplebank/util"
+	"exercise/simplebank/util"
 	"testing"
 	"time"
 

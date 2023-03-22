@@ -1,8 +1,8 @@
 package api
 
 import (
-	"assignment_01/simplebank/token"
 	"errors"
+	"exercise/simplebank/token"
 	"net/http"
 	"strings"
 

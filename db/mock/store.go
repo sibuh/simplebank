@@ -5,7 +5,7 @@
 package mockdb
 
 import (
-	db "assignment_01/simplebank/db/sqlc"
+	db "exercise/simplebank/db/sqlc"
 	context "context"
 	reflect "reflect"
 

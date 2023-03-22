@@ -1,8 +1,8 @@
 package api
 
 import (
-	db "assignment_01/simplebank/db/sqlc"
 	"database/sql"
+	db "exercise/simplebank/db/sqlc"
 	"fmt"
 	"net/http"
 
