@@ -1,9 +1,9 @@
 package db
 
 import (
-	"assignment_01/simplebank/util"
 	"context"
 	"database/sql"
+	"exercise/simplebank/util"
 	"testing"
 	"time"
 

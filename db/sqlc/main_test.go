@@ -1,8 +1,8 @@
 package db
 
 import (
-	"assignment_01/simplebank/util"
 	"database/sql"
+	"exercise/simplebank/util"
 	"log"
 	"os"
 	"testing"
