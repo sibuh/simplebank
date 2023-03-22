@@ -1,5 +1,5 @@
 postgres:
-	docker run --name postgres21 -p 5432:5432 -e POSTGRES_USER=sibhatdb  -e POSTGRES_PASSWORD=sibhat21 -d postgres:12-alpine
+	docker run --name postgres21 --network bank-network -p 5432:5432 -e POSTGRES_USER=sibhatdb  -e POSTGRES_PASSWORD=sibhat21 -d postgres:12-alpine
 createdb:
 	docker exec -it postgres21 createdb --username=sibhatdb --owner=sibhatdb simple_bank
 dropdb:
