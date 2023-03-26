@@ -5,6 +5,7 @@ import (
 	"errors"
 	db "exercise/simplebank/db/sqlc"
 	"exercise/simplebank/token"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,15 +19,18 @@ type createAccountRequest struct {
 func (server *Server) createAccount(ctx *gin.Context) {
 	var req createAccountRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
+
 		ctx.JSON(http.StatusBadRequest, errResponse(err))
 		return
 	}
+
 	payload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	arg := db.CreateAccountParams{
 		Owner:    payload.Username,
 		Balance:  0,
 		Currency: req.Currency,
 	}
+	fmt.Println("entered")
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
@@ -66,6 +70,7 @@ func (server *Server) getAccount(ctx *gin.Context) {
 	if account.Owner != payload.Username {
 		err := errors.New("accont does not belong to authenticated owner")
 		ctx.JSON(http.StatusUnauthorized, errResponse(err))
+		return
 
 	}
 
@@ -80,10 +85,13 @@ type listAccountRequest struct {
 func (server *Server) listAccount(ctx *gin.Context) {
 	var req listAccountRequest
 	if err := ctx.ShouldBindQuery(&req); err != nil {
+		fmt.Println("entered")
 		ctx.JSON(http.StatusBadRequest, errResponse(err))
 		return
 	}
+	payload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	arg := db.ListAccountsParams{
+		Owner:  payload.Username,
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}
