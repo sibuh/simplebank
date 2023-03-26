@@ -43,9 +43,9 @@ func (server *Server) setupRouter() {
 	router.POST("/users/login", server.loginUser)
 	authRoute := router.Group("/").Use(AuthMiddleware(server.tokenMaker))
 	authRoute.GET("/accounts/:id", server.getAccount)
-	router.POST("/accounts", server.createAccount)
-	router.POST("/tranfers", server.createTransfer)
-	router.GET("/accounts/", server.listAccount)
+	authRoute.POST("/accounts", server.createAccount)
+	authRoute.POST("/tranfers", server.createTransfer)
+	authRoute.GET("/accounts/", server.listAccount)
 	server.router = router
 }
 func errResponse(err error) gin.H {
